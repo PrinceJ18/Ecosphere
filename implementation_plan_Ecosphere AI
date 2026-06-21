@@ -1,0 +1,321 @@
+# EcoSphere AI — Implementation Plan
+
+## Overview
+
+**EcoSphere AI** is a production-quality, hackathon-winning SaaS web application that helps users understand, measure, track, and reduce their carbon footprint using AI-driven insights, behavioral analytics, gamification, and actionable recommendations.
+
+## Tech Stack
+
+| Layer | Technology |
+|-------|-----------|
+| Framework | React 19 + TypeScript + Vite |
+| Styling | Tailwind CSS v4 + shadcn/ui |
+| Animation | Framer Motion |
+| Routing | React Router v7 |
+| Forms | React Hook Form + Zod |
+| Charts | Recharts |
+| Icons | Lucide React |
+| State | React Context + localStorage persistence |
+| AI | Simulated AI engine with realistic responses (no API key required — fully self-contained) |
+| Maps | Leaflet + OpenStreetMap (no API key required) |
+| Auth | Local auth simulation with full UX flow |
+
+> [!IMPORTANT]
+> **Design Philosophy**: Since this is a hackathon demo, all features will be **fully functional and self-contained** — no external API keys, no Supabase credentials needed. The app uses localStorage for persistence, a built-in AI engine with pre-trained response patterns, and OpenStreetMap for maps. This means **anyone can clone and run it instantly**.
+
+## Architecture
+
+```
+React App (SPA)
+├── Auth Layer (Context + localStorage)
+├── Data Layer (localStorage + seed data)
+├── AI Engine (rule-based + template responses)
+├── Carbon Calculator (real emission factors)
+├── Gamification Engine (XP, levels, badges, streaks)
+├── Visualization Layer (Recharts + Framer Motion)
+└── Theme System (Dark/Light + CSS variables)
+```
+
+## Proposed Changes
+
+### Phase 1: Project Bootstrap & Design System
+
+#### [NEW] Project scaffolding via Vite
+- Initialize React 19 + TypeScript + Vite project
+- Install all dependencies (Tailwind, shadcn/ui, Framer Motion, Recharts, React Router, etc.)
+- Configure Tailwind with custom color palette (Emerald/Teal/Blue primary, Orange/Yellow accent)
+
+#### [NEW] `src/styles/` — Design System
+- Global CSS with glassmorphism utilities, gradients, animations
+- Custom Tailwind theme with EcoSphere color palette
+- Dark/Light mode CSS variables
+- Typography system (Inter font)
+
+#### [NEW] `src/components/ui/` — Base UI Components (shadcn/ui)
+- Button, Card, Input, Badge, Dialog, Tabs, Progress, Avatar, Tooltip, Sheet, etc.
+
+---
+
+### Phase 2: Core Infrastructure
+
+#### [NEW] `src/providers/` — App Providers
+- `ThemeProvider` — Dark/Light mode with system preference detection
+- `AuthProvider` — Authentication context with login/signup/logout
+- `DataProvider` — Carbon data, activities, goals persistence
+- `GamificationProvider` — XP, levels, badges, streaks, challenges
+- `NotificationProvider` — Toast notifications and reminders
+
+#### [NEW] `src/lib/` — Core Libraries
+- `carbon-calculator.ts` — Real CO₂ emission factors for all categories (transport, food, electricity, shopping, travel)
+- `ai-engine.ts` — Rule-based AI coach with personalized recommendations
+- `gamification.ts` — XP curves, level thresholds, badge conditions, streak logic
+- `seed-data.ts` — Realistic demo data for Judge Demo Mode (multiple personas)
+- `utils.ts` — Date formatting, number formatting, helpers
+
+#### [NEW] `src/types/` — TypeScript Types
+- Complete type definitions for all data models (User, CarbonLog, Activity, Goal, Achievement, Badge, Challenge, Post, etc.)
+
+---
+
+### Phase 3: Authentication & Layout
+
+#### [NEW] `src/pages/auth/` — Auth Pages
+- `LoginPage.tsx` — Email/password + Google login button + forgot password link
+- `SignupPage.tsx` — Registration with avatar selection
+- `ForgotPasswordPage.tsx` — Password reset flow
+
+#### [NEW] `src/layouts/` — App Layouts
+- `AuthLayout.tsx` — Split-screen auth layout with animated eco background
+- `DashboardLayout.tsx` — Sidebar + topbar + main content area
+- `Sidebar.tsx` — Animated sidebar with navigation, user info, streak display
+- `Topbar.tsx` — Search, notifications, theme toggle, user menu
+
+---
+
+### Phase 4: Main Features (Pages)
+
+#### [NEW] `src/pages/dashboard/` — Dashboard
+- Today/Week/Month/Year footprint cards with animated counters
+- Carbon trend sparkline chart
+- Progress ring for daily goal
+- Streak counter with fire animation
+- Quick-add activity floating button
+- AI insight card with daily tip
+- Mini leaderboard
+- Weather widget (simulated)
+- Daily missions list
+- Achievement carousel
+
+#### [NEW] `src/pages/calculator/` — Carbon Calculator
+- Category tabs: Transportation, Food, Electricity, Shopping, Travel, Lifestyle, Waste
+- Each category has sub-items with sliders/inputs
+- Real-time CO₂ calculation with animated gauge
+- Impact score visualization
+- "Add to log" functionality
+- History of calculations
+
+#### [NEW] `src/pages/ai-coach/` — AI Climate Coach
+- Chat interface with message bubbles
+- Pre-built AI responses based on user data
+- Weekly/monthly plan generation
+- Educational content cards
+- Suggestion cards with actionable items
+- Carbon Twin: 1/5/10 year projection charts
+
+#### [NEW] `src/pages/timeline/` — Carbon Timeline
+- Calendar heatmap (GitHub-style)
+- Daily/Weekly/Monthly/Yearly toggle
+- Line charts, bar charts, pie charts, radar charts
+- Category breakdown with animated donut
+- CO₂ saved counter
+- Money saved estimate
+- Trend analysis with comparison periods
+
+#### [NEW] `src/pages/goals/` — Sustainability Goals
+- Set custom targets with deadlines
+- Progress bars with milestones
+- AI-suggested goals
+- Goal categories (transport, food, energy, shopping)
+- Completion celebrations with confetti
+
+#### [NEW] `src/pages/challenges/` — Challenges
+- Daily/Weekly/Monthly challenges
+- Community challenges with participant count
+- Challenge cards with progress, rewards, deadlines
+- Active/Completed/Upcoming tabs
+
+#### [NEW] `src/pages/community/` — Community
+- Post feed with likes, comments, shares
+- Photo uploads (simulated)
+- Eco tips section
+- Achievement sharing
+- User profiles
+- Global leaderboard with animations
+
+#### [NEW] `src/pages/map/` — Eco Map
+- Interactive Leaflet map
+- Markers for: recycling centers, EV charging, green parks, eco stores, water refill stations
+- Filter toggles for each category
+- Location cards with details
+- Trip optimizer (compare travel modes)
+
+#### [NEW] `src/pages/marketplace/` — Sustainable Marketplace
+- Product cards with sustainability scores
+- Categories: Reusable, Solar, LED, Eco bags, Organic
+- Carbon impact comparison (regular vs eco product)
+- "Why switch" explanations
+
+#### [NEW] `src/pages/scanner/` — Receipt/Image Scanner
+- Upload area with drag-and-drop
+- Simulated OCR results
+- Detected items list with CO₂ estimates
+- Auto-categorization
+- "Add to log" button
+
+#### [NEW] `src/pages/offset/` — Carbon Offset
+- Tree planting options
+- NGO cards with donation tracking
+- Offset certificates (downloadable)
+- Impact visualization (trees planted counter)
+
+#### [NEW] `src/pages/reports/` — AI Reports
+- Weekly/Monthly auto-generated reports
+- PDF export simulation
+- CSV data export
+- Charts and statistics
+- Personalized sustainability roadmap
+
+#### [NEW] `src/pages/settings/` — Settings
+- Profile editing with avatar
+- Theme customization
+- Notification preferences
+- Data export/import
+- Keyboard shortcuts reference
+- Account management
+
+#### [NEW] `src/pages/ecocity/` — EcoCity Builder (Bonus)
+- Virtual city/forest that grows as user saves CO₂
+- Animated SVG city with buildings, trees, parks
+- Level-based unlocks (new buildings, decorations)
+- Statistics overlay
+
+#### [NEW] `src/pages/home-energy/` — Home Energy Simulator (Bonus)
+- Interactive home diagram
+- Toggle: LED, solar panels, insulation, efficient appliances
+- Real-time savings calculation
+- Before/after comparison
+- Annual savings projection
+
+---
+
+### Phase 5: Gamification System
+
+#### [NEW] `src/components/gamification/`
+- `XPBar.tsx` — Animated XP progress bar with level display
+- `BadgeGrid.tsx` — Badge collection with locked/unlocked states
+- `StreakCounter.tsx` — Fire animation streak display
+- `LevelUpModal.tsx` — Celebration modal with confetti
+- `DailyMissions.tsx` — Mission checklist with rewards
+- `AchievementToast.tsx` — Pop-up achievement notifications
+
+---
+
+### Phase 6: Visualizations & Animations
+
+#### [NEW] `src/components/charts/`
+- `CarbonGauge.tsx` — Animated gauge meter
+- `TrendChart.tsx` — Line chart with gradient fill
+- `CategoryDonut.tsx` — Animated donut/pie chart
+- `Heatmap.tsx` — GitHub-style calendar heatmap
+- `RadarChart.tsx` — Category comparison radar
+- `BarChart.tsx` — Animated bar chart
+- `PlanetHealth.tsx` — Earth health meter animation
+- `TreeGrowth.tsx` — Animated tree that grows with savings
+
+---
+
+### Phase 7: Polish & Demo Mode
+
+#### [NEW] Judge Demo Mode
+- Pre-loaded with 3 user personas (eco-warrior, average user, beginner)
+- 6 months of realistic activity data
+- Populated community posts, challenges, leaderboard
+- One-click persona switching from settings
+
+---
+
+## Folder Structure
+
+```
+src/
+├── components/
+│   ├── ui/          (shadcn/ui base components)
+│   ├── charts/      (Recharts wrappers)
+│   ├── gamification/(XP, badges, streaks)
+│   ├── layout/      (Sidebar, Topbar, etc.)
+│   └── shared/      (Reusable composed components)
+├── pages/
+│   ├── auth/
+│   ├── dashboard/
+│   ├── calculator/
+│   ├── ai-coach/
+│   ├── timeline/
+│   ├── goals/
+│   ├── challenges/
+│   ├── community/
+│   ├── map/
+│   ├── marketplace/
+│   ├── scanner/
+│   ├── offset/
+│   ├── reports/
+│   ├── settings/
+│   ├── ecocity/
+│   └── home-energy/
+├── providers/
+├── hooks/
+├── lib/
+├── types/
+├── styles/
+├── assets/
+└── constants/
+```
+
+## Color Palette (Tailwind)
+
+| Token | Value |
+|-------|-------|
+| Primary | emerald-500 (#10b981) |
+| Primary Dark | emerald-700 (#047857) |
+| Secondary | teal-500 (#14b8a6) |
+| Accent | amber-500 (#f59e0b) |
+| Success | green-500 (#22c55e) |
+| Warning | orange-500 (#f97316) |
+| Danger | red-500 (#ef4444) |
+| Background (dark) | slate-900 (#0f172a) |
+| Surface (dark) | slate-800 (#1e293b) |
+| Background (light) | gray-50 (#f9fafb) |
+
+## Verification Plan
+
+### Automated
+- `npm run build` — Ensure zero TypeScript/build errors
+- `npm run lint` — ESLint passes
+
+### Manual
+- Run `npm run dev` and verify all pages render
+- Test dark/light mode toggle
+- Test responsive design at mobile/tablet/desktop
+- Navigate all routes
+- Use carbon calculator and verify calculations
+- Interact with AI coach
+- Check gamification (XP, badges, streaks)
+- View charts and animations
+- Test Judge Demo Mode persona switching
+
+## Open Questions
+
+> [!IMPORTANT]
+> **API Keys**: This implementation will be fully self-contained with no external API dependencies. The AI coach uses a built-in rule-based engine, maps use OpenStreetMap (free), and all data persists in localStorage. This means zero setup required — just `npm install && npm run dev`. Is this approach acceptable, or do you want me to integrate specific API keys you can provide?
+
+> [!NOTE]
+> **Tailwind Version**: You mentioned Tailwind CSS. I'll use Tailwind CSS v4 (latest) with the Vite plugin. The shadcn/ui components will be configured accordingly.
