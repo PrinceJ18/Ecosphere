@@ -114,13 +114,15 @@ export default function CalculatorPage() {
         {/* Calculator */}
         <div className="lg:col-span-2 space-y-6">
           {/* Category Tabs */}
-          <div className="flex gap-2 overflow-x-auto pb-2 scrollbar-thin">
+          <div className="flex gap-2 overflow-x-auto pb-2 scrollbar-thin" role="tablist">
             {categories.map(cat => (
               <motion.button
                 key={cat.id}
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
                 onClick={() => { setActiveCategory(cat.id); setSelectedSub(''); setCo2Result(null); setAmount(''); }}
+                role="tab"
+                aria-selected={activeCategory === cat.id}
                 className="flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs font-semibold whitespace-nowrap transition-all cursor-pointer"
                 style={
                   activeCategory === cat.id
@@ -181,6 +183,7 @@ export default function CalculatorPage() {
                       placeholder={`Amount in ${options.find(o => o.value === selectedSub)?.unit || 'units'}`}
                       min="0"
                       step="0.1"
+                      aria-label="Activity amount"
                       className="w-full px-3 py-2 rounded-xl text-sm"
                       style={{ background: 'var(--bg-secondary)', border: '1px solid var(--border-color)', color: 'var(--text-primary)' }}
                     />
@@ -190,6 +193,7 @@ export default function CalculatorPage() {
                       type="date"
                       value={date}
                       onChange={e => setDate(e.target.value)}
+                      aria-label="Activity date"
                       className="w-full px-3 py-2 rounded-xl text-sm"
                       style={{ background: 'var(--bg-secondary)', border: '1px solid var(--border-color)', color: 'var(--text-primary)' }}
                     />

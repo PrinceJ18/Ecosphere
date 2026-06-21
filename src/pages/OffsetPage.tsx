@@ -265,8 +265,9 @@ export default function OffsetPage() {
 
               <div className="space-y-4">
                 <div>
-                  <label className="text-xs font-semibold mb-2 block" style={{ color: 'var(--text-secondary)' }}>Amount ($)</label>
+                  <label htmlFor="offset-amount" className="text-xs font-semibold mb-2 block" style={{ color: 'var(--text-secondary)' }}>Amount ($)</label>
                   <input
+                    id="offset-amount"
                     type="number"
                     value={amount}
                     onChange={e => setAmount(e.target.value)}

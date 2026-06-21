@@ -271,6 +271,7 @@ export default function CommunityPage() {
                         <button 
                           onClick={() => handleCommentSubmit(post.id)}
                           disabled={!(commentInputs[post.id]?.trim())}
+                          aria-label="Send comment"
                           className="absolute right-2 p-1.5 rounded-lg gradient-primary text-white disabled:opacity-50 cursor-pointer"
                         >
                           <Send className="w-3 h-3" />

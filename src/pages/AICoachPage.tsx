@@ -213,6 +213,7 @@ export default function AICoachPage() {
           onChange={e => setInput(e.target.value)}
           onKeyDown={e => e.key === 'Enter' && handleSend()}
           placeholder="Ask me anything about sustainability..."
+          aria-label="Ask the AI Coach a question"
           className="flex-1"
         />
         <motion.button
@@ -220,6 +221,7 @@ export default function AICoachPage() {
           whileTap={{ scale: 0.95 }}
           onClick={() => handleSend()}
           disabled={!input.trim()}
+          aria-label="Send message"
           className="px-4 rounded-xl text-white gradient-primary disabled:opacity-50"
         >
           <Send className="w-4 h-4" />

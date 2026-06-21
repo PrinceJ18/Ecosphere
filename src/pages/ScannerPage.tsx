@@ -133,6 +133,10 @@ export default function ScannerPage() {
             onDragOver={handleDragOver}
             onDragLeave={handleDragLeave}
             onDrop={handleDrop}
+            role="button"
+            tabIndex={0}
+            aria-label="Upload receipt or product image for analysis"
+            onKeyDown={e => e.key === 'Enter' && handleUploadClick()}
             className={`stat-card stat-card--empty relative overflow-hidden flex flex-col items-center justify-center min-h-[340px] border-2 border-dashed transition-all cursor-pointer ${
               dragOver ? 'border-emerald-500 bg-emerald-500/5' : 'border-slate-800'
             }`}
@@ -276,6 +280,7 @@ export default function ScannerPage() {
                           whileTap={{ scale: 0.95 }}
                           onClick={() => handleSaveItem(item)}
                           disabled={savedItems.has(item.id)}
+                          aria-label={savedItems.has(item.id) ? "Saved to carbon log" : "Save item to carbon log"}
                           className="w-7 h-7 rounded-lg flex items-center justify-center transition-all cursor-pointer"
                           style={
                             savedItems.has(item.id)
